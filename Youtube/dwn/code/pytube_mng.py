@@ -17,3 +17,12 @@ def download_stream(stream:pytube.Stream):
 def get_captions(obj:pytube.YouTube, language_code:str):
     caption = obj.captions.get_by_language_code(language_code)
     return caption.generate_srt_captions()
+
+def get_length(obj:pytube.YouTube) -> str:
+    seconds = obj.length
+    hours = int(seconds/(60*60))
+    seconds = seconds%(60*60)
+    minutes = int(seconds/60)
+    seconds = seconds%60
+    str_time = f"{hours}:{minutes}:{seconds}"
+    return str_time
