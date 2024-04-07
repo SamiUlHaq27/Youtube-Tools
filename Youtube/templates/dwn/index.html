@@ -56,9 +56,8 @@
                         <h1 class="text-white text-center">Youtube Video Download</h1>
 
                         <h6 class="text-center">Free download youtube video in any format</h6>
-                        <form action={% url "home" %} method="post" class="custom-form mt-4 pt-2 mb-lg-0 mb-5"
+                        <form action={% url "home" %} method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5"
                             role="search">
-                            {% csrf_token %}
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bi-search" id="basic-addon1"></span>
 
@@ -192,9 +191,9 @@
                                                     <p>Resolution: {{stream.resolution}}</p>
 
                                                     <div style="display: ruby-text; margin-top:10px">
-                                                        <a href="?id={{stream.itag}}" target="_blank"><button
+                                                        <a href="{{stream.url}}" download target="_blank"><button
                                                                 type="submit"
-                                                                class="btn btn-primary flex margin-top ">Download</button></a>
+                                                                class="btn btn-primary flex margin-top">Download</button></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -242,9 +241,9 @@
                                                         <p>Resolution: {{stream.resolution}}</p>
 
                                                         <div style="display: ruby-text; margin-top:10px">
-                                                            <a href="?id={{stream.itag}}" target="_blank"><button
+                                                            <a href="{{stream.url}}" download target="_blank"><button
                                                                     type="submit"
-                                                                    class="btn btn-primary flex margin-top ">Download</button></a>
+                                                                    class="btn btn-primary flex margin-top">Download</button></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -295,9 +294,9 @@
                                                         <p>Resolution: {{stream.resolution}}</p>
 
                                                         <div style="display: ruby-text; margin-top:10px">
-                                                            <a href="?id={{stream.itag}}" target="_blank"><button
+                                                            <a href="{{stream.url}}" download target="_blank"><button
                                                                     type="submit"
-                                                                    class="btn btn-primary flex margin-top ">Download</button></a>
+                                                                    class="btn btn-primary flex margin-top " >Download</button></a>
                                                         </div>
                                                 </div>
                                             </div>

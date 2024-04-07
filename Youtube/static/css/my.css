@@ -2,3 +2,22 @@
     color: red;
     text-align: center;
 }
+
+.dp{
+    width: 100%;
+}
+
+.dp-item{
+    border: 1px solid black;
+}
+
+.my-dp{
+    border: none;
+    color: aliceblue;
+    font-size: large;
+    padding: 4px;
+    background-color: #007bff;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 2px;
+}
