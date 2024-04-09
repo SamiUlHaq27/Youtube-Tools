@@ -29,10 +29,11 @@
                         <li class="nav-item">
                             <a class="nav-link click-scroll" href="#section_1">Home</a>
                         </li>
-
+                        {% if display_streams %}
                         <li class="nav-item">
                             <a class="nav-link click-scroll" href="#section_2">Streams</a>
                         </li>
+                        {% endif %}
 
                         <li class="nav-item">
                             <a class="nav-link click-scroll" href="#section_3">How it works</a>
@@ -84,7 +85,7 @@
 
 
                     <div class="col-lg-6 col-12">
-                        <div class="custom-block custom-block-overlay">
+                        <div class="custom-block custom-block-overlay" style="height: fit-content;">
                             <div class="d-flex flex-column h-100">
                                 <img src={{thumbnail}} class="custom-block-image img-fluid" alt="">
                             </div>
@@ -94,7 +95,7 @@
                         <div class="custom-block bg-white shadow-lg">
 
                             <div class="d-flex">
-                                <div>
+                                <div style="overflow: scroll; height: 250px;">
                                     <h5 class="mb-2">{{title}}</h5>
                                     <span class="badge bg-design">{{duration}}</span>
                                     <p class="mb-0">{{description}}</p>
