@@ -29,6 +29,9 @@
                         <li class="nav-item">
                             <a class="nav-link click-scroll" href="#section_1">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="playlist/">Playlist</a>
+                        </li>
                         {% if display_streams %}
                         <li class="nav-item">
                             <a class="nav-link click-scroll" href="#section_2">Streams</a>
@@ -103,8 +106,9 @@
 
                             </div>
                             <div style="display: ruby-text; margin-top:10px">
-                                <a href="#section_2"><button type="submit"
-                                        class="btn btn-primary flex margin-top ">Download</button></a>
+                                <div class="btn-group">
+                                    <a href="#section_2"><button type="button" class="btn btn-primary">Download</button></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -118,11 +122,9 @@
         {% if display_streams %}
         <section class="explore-section section-padding" id="section_2">
             <div class="container">
-
                 <div class="col-12 text-center">
-                    <h2 class="mb-4">Browse Topics</h1>
+                    <h2 class="mb-4">Download Here</h1>
                 </div>
-
             </div>
             </div>
 
@@ -160,22 +162,22 @@
                                 aria-labelledby="design-tab" tabindex="0">
                                 <div class="row">
                                     {% for stream in streams %}
-                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                    <div class="col-lg-3 col-md-6 col-9 mb-4 mb-lg-0">
                                         <div class="custom-block bg-white shadow-lg">
-                                            <img src={{thumbnail}} class="custom-block-image img-fluid" alt="">
+                                            <!-- <img src={{thumbnail}} class="custom-block-image img-fluid" alt=""> -->
                                             <div class="d-flex">
                                                 <div>
-                                                    <h5 class="mb-2">{{title}}</h5>
-                                                    <span class="badge bg-design">{{duration}}</span>
+                                                    <!-- <h5 class="mb-2">{{title}}</h5> -->
+                                                    <!-- <span class="badge bg-design">{{duration}}</span> -->
 
                                                     {% if stream.includes_audio_track %}
                                                     <img src={% static "images/yes_audio.svg" %} style="height:30px;"
                                                         alt="" srcset="">
-                                                    <span>Contains audio | </span>
+                                                    <span>Contains audio</span><br>
                                                     {% else %}
                                                     <img src={% static "images/no_audio.webp" %} style="height:30px;"
                                                         alt="" srcset="">
-                                                    <span>No audio | </span>
+                                                    <span>No audio</span><br>
                                                     {% endif %}
 
                                                     {% if stream.includes_video_track %}
@@ -188,8 +190,7 @@
                                                     <span>No video</span>
                                                     {% endif %}
 
-                                                    <p>Format: {% getformat stream.mime_type%}</p>
-                                                    <p>Resolution: {{stream.resolution}}</p>
+                                                    <p>{% getformat stream.mime_type%}/{{stream.resolution}}</p>
 
                                                     <div style="display: ruby-text; margin-top:10px">
                                                         <a href="{{stream.url}}" download target="_blank"><button
@@ -209,45 +210,44 @@
                                 <div class="row">
                                     {% for stream in streams %}
                                     {% if stream.includes_audio_track and not stream.includes_video_track%}
-                                    <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
+                                    <div class="col-lg-3 col-md-6 col-sm-9 col-xl-12 mb-4 mb-lg-3">
                                         <div class="custom-block bg-white shadow-lg">
-                                            <img src={{thumbnail}} class="custom-block-image img-fluid" alt="">
-                                                <div class="d-flex">
-                                                    <div>
-                                                        <h5 class="mb-2">{{title}}</h5>
-                                                        
-                                                        <span class="badge bg-design">{{duration}}</span>
-    
-                                                        {% if stream.includes_audio_track %}
-                                                        <img src={% static "images/yes_audio.svg" %} style="height:30px;"
-                                                            alt="" srcset="">
-                                                        <span>Contains audio | </span>
-                                                        {% else %}
-                                                        <img src={% static "images/no_audio.webp" %} style="height:30px;"
-                                                            alt="" srcset="">
-                                                        <span>No audio | </span>
-                                                        {% endif %}
-    
-                                                        {% if stream.includes_video_track %}
-                                                        <img src={% static "images/yes_video.png" %} style="height:30px;"
-                                                            alt="" srcset="">
-                                                        <span>Contains video</span>
-                                                        {% else %}
-                                                        <img src={% static "images/no_video.png" %} style="height:30px;"
-                                                            alt="" srcset="">
-                                                        <span>No video</span>
-                                                        {% endif %}
-    
-                                                        <p>Format: {% getformat stream.mime_type%}</p>
-                                                        <p>Resolution: {{stream.resolution}}</p>
+                                            <!-- <img src={{thumbnail}} class="custom-block-image img-fluid" alt=""> -->
+                                            <div class="d-flex">
+                                                <div>
+                                                    <!-- <h5 class="mb-2">{{title}}</h5> -->
 
-                                                        <div style="display: ruby-text; margin-top:10px">
-                                                            <a href="{{stream.url}}" download target="_blank"><button
-                                                                    type="submit"
-                                                                    class="btn btn-primary flex margin-top">Download</button></a>
-                                                        </div>
+                                                    <!-- <span class="badge bg-design">{{duration}}</span> -->
+
+                                                    {% if stream.includes_audio_track %}
+                                                    <img src={% static "images/yes_audio.svg" %} style="height:30px;"
+                                                        alt="" srcset="">
+                                                    <span>Contains audio</span><br>
+                                                    {% else %}
+                                                    <img src={% static "images/no_audio.webp" %} style="height:30px;"
+                                                        alt="" srcset="">
+                                                    <span>No audio</span><br>
+                                                    {% endif %}
+
+                                                    {% if stream.includes_video_track %}
+                                                    <img src={% static "images/yes_video.png" %} style="height:30px;"
+                                                        alt="" srcset="">
+                                                    <span>Contains video</span>
+                                                    {% else %}
+                                                    <img src={% static "images/no_video.png" %} style="height:30px;"
+                                                        alt="" srcset="">
+                                                    <span>No video</span>
+                                                    {% endif %}
+
+                                                    <p>{% getformat stream.mime_type%}/{{stream.resolution}}</p>
+
+                                                    <div style="display: ruby-text; margin-top:10px">
+                                                        <a href="{{stream.url}}" download target="_blank"><button
+                                                                type="submit"
+                                                                class="btn btn-primary flex margin-top">Download</button></a>
                                                     </div>
                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
                                     {% endif %}
@@ -261,44 +261,43 @@
                             <div class="row">
                                 {% for stream in streams %}
                                 {% if stream.includes_video_track and not stream.includes_audio_track %}
-                                <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
+                                <div class="col-lg-3 col-md-6 col-9 mb-4 mb-lg-3">
                                     <div class="custom-block bg-white shadow-lg">
                                         <a href="topics-detail.html">
-                                            <img src={{thumbnail}} class="custom-block-image img-fluid" alt="">
+                                            <!-- <img src={{thumbnail}} class="custom-block-image img-fluid" alt=""> -->
                                             <div class="d-flex">
                                                 <div>
-                                                    <h5 class="mb-2">{{title}}</h5>
+                                                    <!-- <h5 class="mb-2">{{title}}</h5> -->
 
-                                                    <span class="badge bg-design">{{duration}}</span>
-    
-                                                        {% if stream.includes_audio_track %}
-                                                        <img src={% static "images/yes_audio.svg" %} style="height:30px;"
-                                                            alt="" srcset="">
-                                                        <span>Contains audio | </span>
-                                                        {% else %}
-                                                        <img src={% static "images/no_audio.webp" %} style="height:30px;"
-                                                            alt="" srcset="">
-                                                        <span>No audio | </span>
-                                                        {% endif %}
-    
-                                                        {% if stream.includes_video_track %}
-                                                        <img src={% static "images/yes_video.png" %} style="height:30px;"
-                                                            alt="" srcset="">
-                                                        <span>Contains video</span>
-                                                        {% else %}
-                                                        <img src={% static "images/no_video.png" %} style="height:30px;"
-                                                            alt="" srcset="">
-                                                        <span>No video</span>
-                                                        {% endif %}
-    
-                                                        <p>Format: {% getformat stream.mime_type%}</p>
-                                                        <p>Resolution: {{stream.resolution}}</p>
+                                                    <!-- <span class="badge bg-design">{{duration}}</span> -->
 
-                                                        <div style="display: ruby-text; margin-top:10px">
-                                                            <a href="{{stream.url}}" download target="_blank"><button
-                                                                    type="submit"
-                                                                    class="btn btn-primary flex margin-top " >Download</button></a>
-                                                        </div>
+                                                    {% if stream.includes_audio_track %}
+                                                    <img src={% static "images/yes_audio.svg" %} style="height:30px;"
+                                                        alt="" srcset="">
+                                                    <span>Contains audio</span><br>
+                                                    {% else %}
+                                                    <img src={% static "images/no_audio.webp" %} style="height:30px;"
+                                                        alt="" srcset="">
+                                                    <span>No audio</span><br>
+                                                    {% endif %}
+
+                                                    {% if stream.includes_video_track %}
+                                                    <img src={% static "images/yes_video.png" %} style="height:30px;"
+                                                        alt="" srcset="">
+                                                    <span>Contains video</span>
+                                                    {% else %}
+                                                    <img src={% static "images/no_video.png" %} style="height:30px;"
+                                                        alt="" srcset="">
+                                                    <span>No video</span>
+                                                    {% endif %}
+
+                                                    <p>{% getformat stream.mime_type%}/{{stream.resolution}}</p>
+
+                                                    <div style="display: ruby-text; margin-top:10px">
+                                                        <a href="{{stream.url}}" download target="_blank"><button
+                                                                type="submit"
+                                                                class="btn btn-primary flex margin-top ">Download</button></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </a>
@@ -332,11 +331,9 @@
                                 </div>
 
                                 <li>
-                                    <h4 class="text-white mb-3">Search your favourite topic</h4>
+                                    <h4 class="text-white mb-3">Paste the link of video.</h4>
 
-                                    <p class="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                        Reiciendis, cumque magnam? Sequi, cupiditate quibusdam alias illum sed esse ad
-                                        dignissimos libero sunt, quisquam numquam aliquam? Voluptas, accusamus omnis?
+                                    <p class="text-white">Find the youtube video you want to download and paste the link in bar. The link with "watch=" is preferable.
                                     </p>
 
                                     <div class="icon-holder">
@@ -345,11 +342,9 @@
                                 </li>
 
                                 <li>
-                                    <h4 class="text-white mb-3">Bookmark &amp; Keep it for yourself</h4>
+                                    <h4 class="text-white mb-3">Stream selection</h4>
 
-                                    <p class="text-white">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint
-                                        animi necessitatibus aperiam repudiandae nam omnis est vel quo, nihil repellat
-                                        quia velit error modi earum similique odit labore. Doloremque, repudiandae?</p>
+                                    <p class="text-white">Multiple streams of audio and video are availiable. You can choose whether to download audio only, video only or audio+video stream.</p>
 
                                     <div class="icon-holder">
                                         <i class="bi-bookmark"></i>
@@ -357,11 +352,9 @@
                                 </li>
 
                                 <li>
-                                    <h4 class="text-white mb-3">Read &amp; Enjoy</h4>
+                                    <h4 class="text-white mb-3">Download</h4>
 
-                                    <p class="text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                        Animi vero quisquam, rem assumenda similique voluptas distinctio, iste est hic
-                                        eveniet debitis ut ducimus beatae id? Quam culpa deleniti officiis autem?</p>
+                                    <p class="text-white">Click the download button of your desired stream and you will be redirected to the stream. IF you you do not have IDM then click on three dots and then click download.</p>
 
                                     <div class="icon-holder">
                                         <i class="bi-book"></i>
@@ -371,12 +364,12 @@
                         </div>
                     </div>
 
-                    <div class="col-12 text-center mt-5">
+                    <!-- <div class="col-12 text-center mt-5">
                         <p class="text-white">
                             Want to learn more?
                             <a href="#" class="btn custom-btn custom-border-btn ms-3">Check out Youtube</a>
                         </p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </section>
@@ -401,16 +394,13 @@
                                 <h2 class="accordion-header" id="headingOne">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        What is Topic Listing?
+                                        What is Youtube Playlist downloader?
                                     </button>
                                 </h2>
 
                                 <div id="collapseOne" class="accordion-collapse collapse show"
                                     aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        Topic Listing is free Bootstrap 5 CSS template. <strong>You are not allowed to
-                                            redistribute this template</strong> on any other template collection website
-                                        without our permission. Please contact TemplateMo for more detail. Thank you.
+                                    <div class="accordion-body">It is the only availiable youtube playlist downloader over the web. It allows you to donwnload complete playlist in just few clicks.
                                     </div>
                                 </div>
                             </div>
@@ -419,15 +409,14 @@
                                 <h2 class="accordion-header" id="headingTwo">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        How to find a topic?
+                                        Is it free?
                                     </button>
                                 </h2>
 
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                     data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        You can search on Google with <strong>keywords</strong> such as templatemo
-                                        portfolio, templatemo one-page layouts, photography, digital marketing, etc.
+                                        Yes it is completely free as it is in development phase now.
                                     </div>
                                 </div>
                             </div>
@@ -437,16 +426,14 @@
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#collapseThree" aria-expanded="false"
                                         aria-controls="collapseThree">
-                                        Does it need to paid?
+                                        Does it need any sign up?
                                     </button>
                                 </h2>
 
                                 <div id="collapseThree" class="accordion-collapse collapse"
                                     aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        You can modify any of this with custom CSS or overriding our default variables.
-                                        It's also worth noting that just about any HTML can go within the
-                                        <code>.accordion-body</code>, though the transition does limit overflow.
+                                        No it doesn't requires any sign up or subscription.
                                     </div>
                                 </div>
                             </div>

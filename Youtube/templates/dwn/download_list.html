@@ -1,0 +1,120 @@
+{% include "head.html" %}
+{% load downstream %}
+{% load static %}
+
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <img height="100px" src={% static "images/logo.png" %} alt="" srcset="">
+        </a>
+
+        <div class="d-lg-none ms-auto me-4">
+            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-lg-5 me-lg-auto">
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="/playlist/">Playlist</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8 col-12 mx-auto">
+                <h1 class="text-white text-center">Youtube Playlist Download</h1>
+
+                <h6 class="text-center">Free download youtube playlist in customized way</h6>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function copyLinks(){
+        var els = document.getElementsByClassName("stream-url");
+        var links = "";
+        for (let i = 0; i < els.length; i++) {
+            links = links+"\n"+els[i]["href"];
+        }
+        navigator.clipboard.writeText(links);
+        alert("All links copied to clipboard");
+    }
+
+    function openInNewTab(href) {
+        Object.assign(document.createElement('a'), {
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          href: href,
+        }).click();
+      }
+
+    function downloadAll(){
+        var els = document.getElementsByClassName("stream-url");
+        for (let i = 0; i < els.length; i++) {
+            openInNewTab(els[i]["href"]);
+        }
+    }
+
+    function reverse(){
+        
+        var elements = document.getElementsByClassName("videos");
+        var elementsArray = Array.from(elements);
+        elementsArray.reverse();
+    
+        var container = document.getElementsByClassName('table-body')[0];
+        container.innerHTML = '';
+    
+        elementsArray.forEach(function(element) {
+            container.appendChild(element);
+        });
+    }
+</script>
+<button class="btn btn-primary" onclick="downloadAll()" type="button">Start Downloading All</button>
+<button class="btn btn-primary" onclick="copyLinks()">Copy Links</button>
+<button class="btn btn-primary" onclick="reverse()">Reverse</button>
+<button class="btn btn-primary">Add Numbers</button>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">No in Playlist</th>
+        <th scope="col">Title</th>
+        <th scope="col">Resolution</th>
+        <th scope="col">Format</th>
+        <th scope="col">Download</th>
+      </tr>
+    </thead>
+    <tbody class="table-body">
+        {% for dwn in downloads %}
+        <tr class="videos">
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{dwn.video_no}}</td>
+          <td>{{dwn.filename}}</td>
+          <td>{{dwn.resolution}}</td>
+          <td>{{dwn.format}}</td>
+          <td><a href={{dwn.url}} class="stream-url" download="{{dwn.filename}} ({{dwn.resolution}}).{% getformat dwn.format%}" target="_blank"><button type="button" class="btn btn-primary">Download</button></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+
+{% include "footer.html" %}
