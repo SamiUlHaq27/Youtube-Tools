@@ -67,6 +67,11 @@ class Playlist(View):
         if url.find("watch?v=") > -1:
             return redirect("/?url="+url)
         if url != "":
+            request.session["purl"] = url
+            try:
+                del request.session["videos"]
+            except:
+                pass
             try:
                 playlist_object = pytube_mng.get_playlist(url)
                 videos = playlist_object.videos
@@ -108,18 +113,22 @@ class Playlist(View):
 class PlaylistDownload(View):
     
     def get(self, request):
+        url = request.session.get("purl", "")
         videos = request.session.get("videos", False)
+        
         if videos:
             for i in range(len(videos)):
-                try: 
-                    videos[i]["streams"] = pytube_mng.get_streams_data(pytube_mng.get_object(videos[i]["url"]))
+                try:
+                    if videos[i].get("streams",False):
+                        pass
+                    else:
+                        videos[i]["streams"] = pytube_mng.get_streams_data(pytube_mng.get_object(videos[i]["url"]))
                     print(f"Video {i:>3}: fetched")
                 except Exception as e:
                     print(f"Video {i:>3}: not fetched due to "+e.__str__)
-            # with open("playlist.json","r") as f:
-            #     videos = json.load(f)
+
             request.session["videos"] = videos
-            return render(request, "dwn/download_playlist.html", {"videos":videos})
+            return render(request, "dwn/download_playlist.html", {"videos":videos,"link":"value="+url})
         else:
             return redirect("playlist")
         

@@ -121,12 +121,7 @@
                 <div class="row">
 
                     <div class="col-12">
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel"
-                                aria-labelledby="design-tab" tabindex="0">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-6 col-12 mb-4 mb-lg-0">
-                                        <a href="{% url 'playlist_download' %}" target="_blank"><button type="submit" class="btn btn-primary flex margin-top ">Download Full Playlist</button></a>
+                        <a href="{% url 'playlist_download' %}" target="_blank"><button type="submit" class="btn btn-primary flex margin-top ">Download Full Playlist</button></a>
                                         <script>
                                             function copyUrls() {
                                                 var urls = "{% for u in all_urls %}{{u}}\n{% endfor %}";
@@ -134,8 +129,8 @@
                                             }
                                         </script>
                                         <div class="btn btn-primary" onclick="copyUrls()">Copy Links</div>
-                                        <button class="btn btn-primary">Reverse</button>
-                                        <button class="btn btn-primary">Add Numbers</button>
+                                        <!-- <button class="btn btn-primary">Reverse</button>
+                                        <button class="btn btn-primary">Add Numbers</button> -->
                                         <table class="table">
                                             <thead class="table-dark">
                                                 <tr>
@@ -158,10 +153,6 @@
                                                 {% endfor %}
                                             </tbody>
                                         </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -91,149 +91,55 @@
                 <div class="row">
 
                     <div class="col-12">
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel"
-                                aria-labelledby="design-tab" tabindex="0">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-6 col-12 mb-4 mb-lg-0">
-                                        <form action="" method="post" id="download-form">
-                                            {% csrf_token %}
-                                            <div>
-                                                <button class="btn btn-primary" type="submit">Start Downloading</button>
-                                                <a href="#"><div class="btn btn-primary" type="submit">Copy Links</div></a>
-                                            </div>
-                                            <table class="table">
-                                                <thead class="table-dark">
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th onclick="set_checkbox()"><input type="checkbox" name="all" id="main-box"></th>
-                                                        <th>Thumbnail</th>
-                                                        <th>Title</th>
-                                                        <th>Download</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {% for video in videos %}
-                                                    <tr>
-                                                        <th>{{forloop.counter}}</th>
-                                                        <th><input class="select-box" type="checkbox" name="video{{forloop.counter}}" id=""></th>
-                                                        <th><img height="100px" src="{{video.thumbnail_url}}" alt="" srcset=""></th>
-                                                        <th>{{video.title}}</th>
-                                                        <th>
-                                                            <select name="stream{{forloop.counter}}" id="" class="my-dp">
-                                                                {% for stream in video.streams %}
-                                                                    {% if stream.includes_video_track and stream.includes_audio_track %}
-                                                                    <option value="{{forloop.counter}}">
-                                                                        {% getformat stream.mime_type %} | {{stream.resolution}} | {{stream.filesize_mb}}mb
-                                                                    </option>
-                                                                    {% elif stream.includes_video_track and not stream.includes_audio_track %}
-                                                                    <option value="{{forloop.counter}}">
-                                                                        {% getformat stream.mime_type %} | Only Video | {{stream.resolution}} | {{stream.filesize_mb}}mb
-                                                                    </option>
-                                                                    {% else %}
-                                                                    <option value="{{forloop.counter}}">
-                                                                        {% getformat stream.mime_type %} | Only Audio | {{stream.filesize_mb}}mb
-                                                                    </option>
-                                                                    {% endif %}
-                                                                {% endfor %}
-                                                            </select>
-
-                                                            <!-- <div class="dropdown">
-                                                                <button class="btn btn-primary dropdown-toggle dp" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                  Download this only
-                                                                </button>
-                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                  {% for stream in video.streams %}
-                                                                    {% if stream.includes_video_track and stream.includes_audio_track %}
-                                                                    <a class="dropdown-item dp-item" href="{{stream.url}}">{% getformat stream.mime_type %} | {{stream.resolution}} | {{stream.filesize_mb}}mb
-                                                                        <img height="20px" src={% static "images/yes_audio.svg" %} alt="" srcset="">
-                                                                        <img height="20px" src={% static "images/yes_video.png" %} alt="" srcset="">
-                                                                    </a>
-                                                                    {% elif stream.includes_video_track and not stream.includes_audio_track %}
-                                                                    <a class="dropdown-item dp-item" href="{{stream.url}}">{% getformat stream.mime_type %} | {{stream.resolution}} | {{stream.filesize_mb}}mb
-                                                                        <img height="20px" src={% static "images/no_audio.webp" %} alt="" srcset="">
-                                                                        <img height="20px" src={% static "images/yes_video.png" %} alt="" srcset="">
-                                                                    </a>
-                                                                    {% else %}
-                                                                    <a class="dropdown-item dp-item" href="{{stream.url}}">{% getformat stream.mime_type %} | Only Audio | {{stream.filesize_mb}}mb
-                                                                        <img height="20px" src={% static "images/yes_audio.svg" %} alt="" srcset="">
-                                                                        <img height="20px" src={% static "images/no_video.png" %} alt="" srcset="">
-                                                                    </a>
-                                                                    {% endif %}
-                                                                {% endfor %}
-                                                                </div>
-                                                              </div> -->
-                                                              <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary dp" data-toggle="modal" data-target="#exampleModalCenter">
-                                                                Download This Only
-                                                            </button>
-                                                            
-                                                            <!-- Modal -->
-                                                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                <div class="modal-content" style="width: auto;">
-                                                                    <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLongTitle">{{video.title}}</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <table class="table table-responsive">
-                                                                            <thead class="table-dark">
-                                                                                <tr>
-                                                                                    <th>#</th>
-                                                                                    <th>Format</th>
-                                                                                    <th>Resolution</th>
-                                                                                    <th>Size</th>
-                                                                                    <th>Audio</th>
-                                                                                    <th>Video</th>
-                                                                                    <th>Download</th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                {% for stream in video.streams %}
-                                                                                <tr>
-                                                                                    <td>{{forloop.counter}}</td>
-                                                                                    <td>{% getformat stream.mime_type %}</td>
-                                                                                    <td>{{stream.resolution}}</td>
-                                                                                    <td>{{stream.filesize_mb}}mb</td>
-                                                                                    <td>
-                                                                                        {% if stream.includes_audio_track %}
-                                                                                        Yes
-                                                                                        {% else %}
-                                                                                        No
-                                                                                        {% endif %}
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        {% if stream.includes_video_track %}
-                                                                                        Yes
-                                                                                        {% else %}
-                                                                                        No
-                                                                                        {% endif %}
-                                                                                    </td>
-                                                                                    <td><a href="{{stream.url}}" target="_blank"><div class="btn btn-primary">Download</div></a></td>
-                                                                                </tr>
-                                                                                {% endfor %}
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    </div>
-                                                                </div>
-                                                                </div>
-                                                            </div>
-                                                        </th>
-                                                    </tr>
-                                                    {% endfor %}
-                                                </tbody>
-                                            </table>
-                                        </form>
-                                    </div>
-                                </div>
+                        <form action="" method="post" id="download-form">
+                            {% csrf_token %}
+                            <div>
+                                <button class="btn btn-primary" type="submit">Start Downloading</button>
+                                {% comment %} <a href="#"><div class="btn btn-primary" type="submit">Copy Links</div></a> {% endcomment %}
                             </div>
-                        </div>
+                            <table class="table">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th onclick="set_checkbox()"><input type="checkbox" name="all" id="main-box"></th>
+                                        <th>Thumbnail</th>
+                                        <th>Title</th>
+                                        <th>Length</th>
+                                        <th>Select Download Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for video in videos %}
+                                    <tr>
+                                        <th>{{forloop.counter}}</th>
+                                        <th><input class="select-box" type="checkbox" name="video{{forloop.counter}}" id=""></th>
+                                        <th><img height="100px" src="{{video.thumbnail_url}}" alt="" srcset=""></th>
+                                        <th>{{video.title}}</th>
+                                        <th>{% get_length video.length %}</th>
+                                        <th>
+                                            <select name="stream{{forloop.counter}}" id="" class="my-dp">
+                                                {% for stream in video.streams %}
+                                                    {% if stream.includes_video_track and stream.includes_audio_track %}
+                                                    <option value="{{forloop.counter}}">
+                                                        {% getformat stream.mime_type %} | {{stream.resolution}} | {{stream.filesize_mb}}mb
+                                                    </option>
+                                                    {% elif stream.includes_video_track and not stream.includes_audio_track %}
+                                                    <option value="{{forloop.counter}}">
+                                                        {% getformat stream.mime_type %} | Only Video | {{stream.resolution}} | {{stream.filesize_mb}}mb
+                                                    </option>
+                                                    {% else %}
+                                                    <option value="{{forloop.counter}}">
+                                                        {% getformat stream.mime_type %} | Only Audio | {{stream.filesize_mb}}mb
+                                                    </option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </th>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
                 </div>
             </div>

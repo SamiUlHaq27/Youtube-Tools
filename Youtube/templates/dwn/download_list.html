@@ -87,34 +87,36 @@
         });
     }
 </script>
-<button class="btn btn-primary" onclick="downloadAll()" type="button">Start Downloading All</button>
-<button class="btn btn-primary" onclick="copyLinks()">Copy Links</button>
-<button class="btn btn-primary" onclick="reverse()">Reverse</button>
-<button class="btn btn-primary">Add Numbers</button>
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">No in Playlist</th>
-        <th scope="col">Title</th>
-        <th scope="col">Resolution</th>
-        <th scope="col">Format</th>
-        <th scope="col">Download</th>
-      </tr>
-    </thead>
-    <tbody class="table-body">
-        {% for dwn in downloads %}
-        <tr class="videos">
-          <th scope="row">{{forloop.counter}}</th>
-          <td>{{dwn.video_no}}</td>
-          <td>{{dwn.filename}}</td>
-          <td>{{dwn.resolution}}</td>
-          <td>{{dwn.format}}</td>
-          <td><a href={{dwn.url}} class="stream-url" download="{{dwn.filename}} ({{dwn.resolution}}).{% getformat dwn.format%}" target="_blank"><button type="button" class="btn btn-primary">Download</button></a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-  </table>
+<div style="padding: 20px;">
+    <button class="btn btn-primary" onclick="downloadAll()" type="button">Start Downloading All</button>
+    <button class="btn btn-primary" onclick="copyLinks()">Copy Links</button>
+    <button class="btn btn-primary" onclick="reverse()">Reverse</button>
+    <!-- <button class="btn btn-primary">Add Numbers</button> -->
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">No in Playlist</th>
+            <th scope="col">Title</th>
+            <th scope="col">Resolution</th>
+            <th scope="col">Format</th>
+            <th scope="col">Download</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+            {% for dwn in downloads %}
+            <tr class="videos">
+              <th scope="row">{{forloop.counter}}</th>
+              <td>{{dwn.video_no}}</td>
+              <td>{{dwn.filename}}</td>
+              <td>{{dwn.resolution}}</td>
+              <td>{{dwn.format}}</td>
+              <td><a href={{dwn.url}} class="stream-url" download="{{dwn.filename}} ({{dwn.resolution}}).{% getformat dwn.format%}" target="_blank"><button type="button" class="btn btn-primary">Download</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div>
 
 
 {% include "footer.html" %}
